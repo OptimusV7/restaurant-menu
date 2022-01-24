@@ -1,0 +1,52 @@
+<h1>Restaurant Menu</h1>
+<p>Welcome to your restautant menu application</p>
+<div>
+
+  <div>
+    <ol class="list-unstyled">
+      <li *ngFor="let item of Data | keyvalue">
+        <input type="radio" [(ngModel)]="dataSelected" name="list_name" value="{{item.value.name}}" (change)="onItemChange(item)" />
+        {{item.value.name}}
+        <div *ngIf="nameValue == item.value.name">
+          <div *ngIf="choices">
+            <ol class="list-unstyled">
+              <li *ngFor="let itemChoiceData of dataAllString.choices | keyvalue" style="margin-left:20px">
+                <div>
+                  <input type="radio" [(ngModel)]="dataSelected" name="list_name" value="{{itemChoiceData.value.name}}" />
+                  {{itemChoiceData.value.name}}
+                </div>
+              </li>
+            </ol>
+          </div>
+
+          <div *ngIf="choices">
+            <div *ngIf="dataAllString.related != null " style="margin-left: 20px;">You might also want:</div>
+            <ol class="list-unstyled">
+              <li *ngFor="let itemRelated of dataAllString.related | keyvalue" style="margin-left: 20px;">
+                <div>
+                  <input type="radio" [(ngModel)]="dataSelected" name="list_name" value="{{itemRelated.value.name}}" (change)="onSelectRelated(item)" />
+                  {{itemRelated.value.name}}
+                  <div  *ngIf="relatedChoices" >
+                      <div *ngIf="dataSelected == itemRelated.value.name">
+                        <ol class="list-unstyled">
+                          <li *ngFor="let itemRelatedChoice of itemRelated.value.choices | keyvalue" style="margin-left:25px">
+                            <div>
+                              <input type="radio" name="list_name" value="{{itemRelatedChoice.value.name}}" />
+                              {{itemRelatedChoice.value.name}}
+                            </div>
+                          </li>
+                        </ol>
+                      </div>
+
+                    </div>
+                  </div>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </li>
+    </ol>
+   
+
+</div>
+  </div>
